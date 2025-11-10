@@ -1,0 +1,14 @@
+Python的多线程/并发库（threading或concurrent.futures）
+
+一、threading基础
+
+threading:python标注库的基础多线程模块，直接控制线程的创建/启动/管理。
+
+
+二、conurrent.futures模块
+
+更简洁，适合批量化
+
+
+
+if __name__ == "__main__":        避免在其他设备导入该代码时，直接执行

@@ -1,0 +1,18 @@
+编写README并提交到GitHub
+
+1.github 新建仓库 
+
+2.在目标目录下：
+	git init （初始本地Git仓库）
+3.关联github仓库
+	git remote add origin https//:github.com/nioupu/port_scanner.git
+	git config --global user.email "you@example.com"
+  	git config --global user.name "Your Name"
+4.提交并推送代码
+	git add .        把所有文件加入Git
+	git commit -m"           "          提交到本地仓库
+	git push origin main
+
+
+
+
