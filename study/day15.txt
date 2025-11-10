@@ -1,0 +1,14 @@
+一、更新README
+
+git commit -m "Update README with new content"
+
+git push origin main
+
+增加单元测试与使用示例
+
+二、写单元测试并上传
+git add test_tcp_scanner.py
+
+git commit -m "添加单元测试文件 test_tcp_scanner.py"
+
+git push origin main
