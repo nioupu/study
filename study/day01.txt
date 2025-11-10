@@ -31,3 +31,4 @@ cat > test.txt   (写入命令覆盖原有内容)
 cat >> test.txt(追加在末尾命令)
 nano test.txt（像记事本一样编辑）
 
+
