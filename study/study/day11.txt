@@ -1,0 +1,31 @@
+一、主机发现流程
+1.明确要扫描的网段
+
+2.nmap -sn 扫描网段，发现主机
+
+3.结果整理，记录nmap扫描的结果，得到目标网络的活跃主机列表
+
+4.扫描i端口，查看扫描对象开启了什么服务
+
+
+二、python扫描器支持端口输入范围与输出csv
+
+import csv 模块
+
+    if open_ports:
+        csv_filename = f"{target_host}_开放端口扫描结果.csv"
+        with open(csv_filename, "w", newline="", encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(["目标主机", "开放端口"])
+            for port in open_ports:
+                writer.writerow([target_host, port])
+                print(f"\n【CSV导出完成】结果已保存到：{csv_filename}")
+
+
+三、周汇总
+day1：wireshark抓包分析三次握手与四次挥手
+day2：arp、traceroute、dns解析结果包
+day3：验证https安全性、ca证书查看（通过浏览器查看证书链）
+day4：nmap基础
+day5：python扫描器
+day6：python扫描器加入csv模块，整理主机发现流程

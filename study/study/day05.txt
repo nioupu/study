@@ -1,0 +1,34 @@
+一、查看pcap文件，查看三次握手
+
+1.用tcpdump查看
+
+tcpdump -r week1.pcap
+
+08:18:35.365720 IP 192.168.119.129.47084 > 39.156.70.37.https: Flags [S], seq 1031344769, win 64240, options [mss 1460,sackOK,TS val 1336059902 ecr 0,nop,wscale 7], length 0
+
+客户端发送SYN包，请求建立连接
+
+08:18:35.429958 IP 39.156.70.37.https > 192.168.119.129.47084: Flags [S.], seq 1152520668, ack 1031344770, win 64240, options [mss 1460], length 0
+
+服务端回复SYN+ACK包,同意连接
+
+08:18:35.429996 IP 192.168.119.129.47084 > 39.156.70.37.https: Flags [.], ack 1, win 64240, length 0
+
+客户端回复ACK包，连接建立完成
+
+08:18:35.430780 IP 192.168.119.129.47084 > 39.156.70.37.https: Flags [P.], seq 1:518, ack 1, win 64240, length 517
+
+加密http为https
+2.用wireshark查看
+
+tcp.port == 47084（看该端口的tcp信息）
+
+2	0.082970	192.168.119.129	39.156.70.37	TCP	74	47084 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM TSval=1336059902 TSecr=0 WS=128
+3	0.147208	39.156.70.37	192.168.119.129	TCP	60	443 → 47084 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460
+4	0.147246	192.168.119.129	39.156.70.37	TCP	54	47084 → 443 [ACK] Seq=1 Ack=1 Win=64240 Len=0
+二、周汇总
+day1：一些基本的linux系统操作
+day2：查看进程、一些系统控制和日志的查看，文本处理工具：awk、sed、gerp
+day3：cut、sort、uniq这三个文本处理工具
+day4：ip的使用，ss的使用，用tcpdump捕获流量
+day5：三次握手的查看和分析

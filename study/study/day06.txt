@@ -1,0 +1,19 @@
+wireshark抓包分析tcp三次握手与四次挥手
+
+ping baidu.com 得到百度ip 39.156.70.37
+
+打开wireshark启动抓包，访问此IP
+
+ip.addr == 39.156.70.37 && tcp && (tcp.flags.syn == 1 || tcp.flags.fin == 1 || tcp.flags.ack == 1)
+
+ip.addr :仅显示与百度该ip的流量，排除无关设备
+
+tcp ：仅保留tcp协议包
+
+syn：连接，fin：关闭，ack：确认 rst：强制重置连接
+
+三次握手
+（SYN/SYN+ACK/ACK）
+
+四次挥手
+（FIN+ACK/ACK/FIN+ACK/ACK）

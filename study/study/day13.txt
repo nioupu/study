@@ -1,0 +1,8 @@
+一、为python扫描器增加argparse支持
+parser = argparse.ArgumentParser(description="")
+
+对程序功能的简要说明 -h：调出
+
+如：parser.add_argument("-t", "--target", required=True, help="目标主机IP（如 127.0.0.1 ）")
+args = parser.parse_args()：封装对象，自动存储
+二、增加输出HTML格式

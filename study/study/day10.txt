@@ -1,0 +1,16 @@
+python扫描器
+
+import socket #用于网络通信
+
+import sys #用于处理命令行参数
+
+sys.argv[0]:脚本名
+
+sys.argv[1]:目标主机
+
+sys.argv[2]:端口范围
+
+print(f""):把变量/表达式的结果直接嵌入字符串里，比传统的字符串拼接更简洁、易读
+
+
+
