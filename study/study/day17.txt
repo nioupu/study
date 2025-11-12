@@ -1,9 +1,0 @@
-一、安装与环境准备
-
-sudo apt install ffuf gobuster dirb hydra -y
-
-git clone https://github.com/danielmiessler/SecLists.git ~/wordlists/SecLists
-git clone https://gitee.com/mirrors/SecLists.git ~/wordlists/SecLists
-（克隆常用字典到本地）
-
-二、复习前三周内容
