@@ -5,7 +5,7 @@ arp -a         ：查询通信设备mac与ip的对应关系
 traceroute     ：分析路由路径     ：追踪数据包从本地到目标网站经过的所有路由器ip，能看到网路路径的中间节点
 traceroute baidu.com   (虚拟机用桥接模式)
 三、dns解析结果包
-设备想访问chat.baidu.com,但不知道ip，于是向dns服务器发送查询包（Frame 170）dns服务器先将chat.baidu.com解析为chat.啊。shifen.com，再解析出改别名对应的ip地址，最终通过响应包（Frame 172）返回给设备，设备拿到ip后，就能通过这个地址访问目标服务
+设备想访问chat.baidu.com,但不知道ip，于是向dns服务器发送查询包（Frame 170）dns服务器先将chat.baidu.com解析为chat.a.shifen.com，再解析出改别名对应的ip地址，最终通过响应包（Frame 172）返回给设备，设备拿到ip后，就能通过这个地址访问目标服务
 
 
 ICMP:网络层协议，不传输数据，告诉设备网络通不通、哪里出了问题

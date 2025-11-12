@@ -1,0 +1,18 @@
+一、ffuf基础练习
+
+ffuf -w ~/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://192.168.119.146/FUZZ -mc 200,301,302 -o ffuf_out.json
+-w:字典路径
+-u:目标URL
+-mc:只显示状态码为 ... 的响应
+-o:输出文件
+-t:并发线程数
+-fc:过滤 ... 的响应
+
+二、高级枚举：扩展名/长度/递归
+
+ffuf -w ~/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://192.168.119.146/FUZZ.php -mc 200 -o fuff_ext.json          (扩展名)
+
+ffuf -w ~/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://192.168.119.146/FUZZ -fs1234 -o ffuf_len.json       (过滤长度1234的结果)
+
+先对target进行目录爆破，再对扫到的目录再进行一次爆破
+

@@ -29,7 +29,7 @@ top进入交互界面
 查看错误日志：sudo journalctl -u 服务名 -xe        x：解释日志   e：跳转到最新日志
 
  
-tips：清空界面  ctrl+l       clear
+tips：清空界面  ctrl+l（换页）       clear（清屏）
 
 5.gerp：文本搜索
 
@@ -38,8 +38,8 @@ gerp "error" log.txt             -i :大小写忽略       -n：显示行号    
 
 6.sed：文本编辑       默认不会保存到原文件     sed '**' 原文件 > 新文件，重创新文件并保存         -i：直接修改原文件（in place）
 
-替换文本：sed  's/old/new/g' file.txt        将文件中的old全部替换成new     g:全局替换      
-删除指定行：sed  '/^#/d' file.txt         删除以#开头的注释行       d：删除
+替换文本：sed  's/old/new/g' file.txt        将文件中的old全部替换成new      s:替换    g:全局      
+删除指定行：sed  '/^#/d' file.txt         删除以#开头的注释行       d：删除行操作
 插入/追加文本：sed '3i *' file.txt          第三行插入
 
 7.awk：文本分析计算器
