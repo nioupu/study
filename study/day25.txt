@@ -1,0 +1,15 @@
+存储xss与DOMxss
+
+xss类型:反射型（脚本随url传参，服务器反射回页面触发，一次性，仅当前请求有效）
+	    存储型（脚本被存储到服务器，其他用户访问时也能触发，影响范围大）
+	    DOM型（脚本不经过服务器，仅在浏览器通过DOM操作触发，漏洞在前端代码）
+
+存储型："><script>alert("xss")</script>
+	     "><img src=x onerror=alert("xss")>
+
+DOM型：在搜索栏构造恶意url参数，修改原url
+
+
+remediation：html实体编码，js转义。配置csp（内容安全策略）content-security-policy:default-src'self';script-src'self'   限制脚本只能加载本站资源，即使出现xss也无法执行外部恶意代码。标记cookie为httponly防止xss窃取cookie。
+			针对存储型：白名单过滤，只允许输入指定字符
+			针对dom型：不用innerHTML，改用textContent（只会渲染纯文本），在前端对url参数，用户输入做格式验证

