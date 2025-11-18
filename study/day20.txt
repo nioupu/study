@@ -10,7 +10,8 @@ hydra -L ~/wordlists/users-small.txt -P ~/wordlists/pass-small.txt -t 4 -f -V -o
 -L:用户名字典路径        -P:密码字典路径         -t:并发任务数         -f:找到一组有效凭证后停止
 -V:逐条显示         -o:把成功的尝试结果写到指定文件         \:表示命令没结束，增加可读性 
 (-H:自定义http header)         ^ ^:占位符，会被-L,-P字典替换提交     
-dvwa有bug，验证不了
+由于dvwa login界面启用csrf token，所以不能用hydra爆破（不支持动态token爆破）
+
 
 ssh验证hydra爆破
 
@@ -21,3 +22,4 @@ hydra -l kali -P ~/wordlists/pass-small.txt 127.0.0.1 ssh -t 4 -V
 
 查看开放的服务
 systemctl --type=service --state=running
+
