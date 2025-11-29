@@ -1,0 +1,23 @@
+文件上传漏洞与绕过
+文件上传漏洞是指服务器对上传文件的类型、内容、扩展名等校验不严格，导致恶意文件如（webshell）被上传并执行的漏洞。
+
+curl上传webshell示例
+
+curl -F "uploaded=@./webshell.php" http://127.0.0.1/dvwa/vulnerabilities/upload/ -v -b  "PHPSESSID=8a8117d6c4742e2fc5cc24509b3fc16e;security=low"
+
+curl:发送http(s)请求     -F:模拟表单提交    "uploaded=":表单里的文件上传字段名   @:本地文件  ./:当前目录       -v:详细的请求过程    -b:用于携带cookie
+
+一些常见的绕过
+
+1.双扩展名绕过 ：webshell.php.jpg     webshell.jpg.php   .php;.jpg  .php%00.jpg……
+防御措施：仅保留允许的白名单后缀，对上传文件统一重命名UUID，不在可执行目录保存上传文件
+2.MIME类型伪造绕过 ：浏览器上传时会带上Content-Type，攻击者可通过burpsuite抓包后手动修改为image/jepg
+防御措施：不信任客户端content-type，后端读取文件头判断真实类型（如读取前几个字节，jpg文件头是FF D8 FF)
+3.文件头伪造绕过 ：在要上传的恶意脚本前加上允许的文件头
+防御措施：检查文件头与扩展名匹配，对文件使用图像解析库二次处理
+4.大小写混淆
+防御措施：检查扩展名前先统一转小写
+5.特殊字符绕过 
+防御措施：对文件名进行严格过滤，拒绝%00、.等特殊字符
+6.目录穿越/路径注入 ：通过路径拼接上的不安全使用../../穿越目录
+防御措施：使用basename()过滤文件名，禁止../、..\\   basename(去掉路径，提取文件名)，限制php执行用户（如www-data的权限）

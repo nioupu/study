@@ -1,0 +1,8 @@
+day1：sql注入
+day2：利用sqlmap自动化检测和拿到数据库信息
+day3：反射XSS手工与burp
+day4：存储型xss与DOM型xss
+day5：文件上传漏洞与绕过
+day6：认证机制测试
+
+复盘练习

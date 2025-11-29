@@ -1,0 +1,21 @@
+burpsuite  sqli          （billu_b0x）
+
+抓包发给intruder，配置变量
+装载sqli字典
+开始爆破
+成功登录
+发现一个文件上传页面，且只允许上传图片文件
+利用burpsuite修改参数，成功上传反弹shell文件
+
+panel.php 使用 load 动态加载文件（可能存在文件包含漏洞）
+成功得到shell
+
+uname -a
+查到内核版本
+searchsploit 3.13.0 （查找有没有漏洞利用代码）
+gcc exp.c -o exp（解析）
+chmod +x exp（赋予执行权）
+./exp（执行）
+
+漏洞原理：
+OverlayFS 在非 root user namespace 中错误允许用户挂载 overlay 文件系统，而 overlay 会让上层目录写入覆盖底层 /etc（特权目录）。最终攻击者能修改 /etc/ld.so.preload → 获得 root
